@@ -4,7 +4,19 @@
     <router-link to="/about">About</router-link>
   </nav>
   <router-view/>
+  <footer-component/>
 </template>
+
+<script>
+  import footerComponent from "@/components/footerComponent.vue";
+
+  export default {
+    name: 'App',
+    components: {
+      footerComponent
+    }
+  }
+</script>
 
 <style>
 #app {
@@ -13,10 +25,18 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
 }
 
 body {
-  background-color: var(--background-color);
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
 }
 
 nav {

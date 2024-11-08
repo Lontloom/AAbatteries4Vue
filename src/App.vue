@@ -4,15 +4,39 @@
     <router-link to="/addPost">Add Post</router-link>
   </nav>
   <router-view/>
+  <footer-component/>
 </template>
+
+<script>
+  import footerComponent from "@/components/footerComponent.vue";
+
+  export default {
+    name: 'App',
+    components: {
+      footerComponent
+    }
+  }
+</script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
+  color: var(--text-color, #000);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+}
+
+body {
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
 }
 
 nav {

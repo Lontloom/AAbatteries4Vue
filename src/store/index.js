@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import postsData from '../assets/posts.json'
 
 export default createStore({
+  strict: true,
   state: {
     posts: postsData,
   },

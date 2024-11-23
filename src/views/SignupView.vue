@@ -1,23 +1,66 @@
 <template>
     <div class="loginBox">
-            <div class="loginContainer">
-                <h1>Welcome to PostIt 2.0</h1>
-                <p>Create an account</p>
-                <form action="#">
-                    <input type="email" name="email" placeholder="Email" required class="loginInput">
-                    <br>
-                    <input type="password" name="password" placeholder="Password" required class="loginInput">
-                    <br>
-                    <input type="submit" value="Signup" class="loginInput loginButton">
-                </form>
-            </div>
+        <div class="loginContainer">
+            <h1>Welcome to PostIt 2.0</h1>
+            <p>Create an account</p>
+            <form @submit.prevent="validatePassword">
+                <input type="email" name="email" placeholder="Email" v-model="email" required class="loginInput" />
+                <br />
+                <input type="password" name="password" placeholder="Password" v-model="password" required
+                    class="loginInput" />
+                <br />
+                <span v-if="errorMessages.length > 0" class="error">
+                    The password is not valid:
+                    <ul>
+                        <li v-for="(error, index) in errorMessages" :key="index">{{ error }}</li>
+                    </ul>
+                </span>
+                <input type="submit" value="Signup" class="loginInput loginButton" />
+            </form>
         </div>
+    </div>
 </template>
 
 <script>
 export default {
-name: 'SignupView',
-}
+    name: "SignupView",
+    data() {
+        return {
+            email: "",
+            password: "",
+            errorMessages: [],
+        };
+    },
+    methods: {
+        validatePassword() {
+            this.errorMessages = []; 
+            const password = this.password;
+
+            if (password.length < 8 || password.length > 15) {
+                this.errorMessages.push("The password must be between 8 and 15 characters long.");
+            }
+            if (!/^[A-Z]/.test(password)) {
+                this.errorMessages.push("The password must start with an uppercase alphabet.");
+            }
+            if (!/[A-Z]/.test(password)) {
+                this.errorMessages.push("The password must include at least one uppercase alphabet character.");
+            }
+            if (!/(.*[a-z].*[a-z])/.test(password)) {
+                this.errorMessages.push("The password must include at least two lowercase alphabet characters.");
+            }
+            if (!/\d/.test(password)) {
+                this.errorMessages.push("The password must include at least one numeric value.");
+            }
+            if (!/_/.test(password)) {
+                this.errorMessages.push('The password must include the character "_".');
+            }
+
+            if (this.errorMessages.length === 0) {
+                alert("Password creation was a success! Proceeding with signup");
+            }
+        },
+    },
+};
 </script>
 
 <style scoped>
@@ -61,10 +104,21 @@ name: 'SignupView',
     background-color: var(--hover-color);
 }
 
-@media (max-width: 330px){
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.error ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+@media (max-width: 330px) {
     .loginContainer {
         border-radius: 0px;
     }
 }
 </style>
-  

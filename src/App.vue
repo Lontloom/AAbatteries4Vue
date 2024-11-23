@@ -1,21 +1,20 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/addPost">Add Post</router-link>
-  </nav>
-  <router-view/>
-  <footer-component/>
+  <header-component />
+  <router-view />
+  <footer-component />
 </template>
 
 <script>
-  import footerComponent from "@/components/footerComponent.vue";
+import HeaderComponent from "@/components/HeaderComponent.vue";
+import FooterComponent from "@/components/footerComponent.vue";
 
-  export default {
-    name: 'App',
-    components: {
-      footerComponent
-    }
-  }
+export default {
+  name: "App",
+  components: {
+    HeaderComponent,
+    FooterComponent,
+  },
+};
 </script>
 
 <style>

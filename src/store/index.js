@@ -1,7 +1,11 @@
 import { createStore } from 'vuex'
 import postsData from '../assets/posts.json'
+import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
+  plugins: [createPersistedState({
+    storage: window.localStorage,
+})],
   strict: true,
   state: {
     posts: postsData,

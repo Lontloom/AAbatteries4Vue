@@ -33,7 +33,7 @@ export default {
     },
     methods: {
         validatePassword() {
-            this.errorMessages = []; 
+            this.errorMessages = [];
             const password = this.password;
 
             if (password.length < 8 || password.length > 15) {
@@ -56,7 +56,8 @@ export default {
             }
 
             if (this.errorMessages.length === 0) {
-                alert("Password creation was a success! Proceeding with signup");
+                alert("Account creation was a success! Redirecting to the home page");
+                this.$router.push("/");
             }
         },
     },

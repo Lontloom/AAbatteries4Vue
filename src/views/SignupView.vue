@@ -3,7 +3,7 @@
         <div class="loginContainer">
             <h1>Welcome to PostIt 2.0</h1>
             <p>Create an account</p>
-            <form @submit.prevent="validatePassword">
+            <form v-on:submit.prevent="validatePassword">
                 <input type="email" name="email" placeholder="Email" v-model="email" required class="loginInput" />
                 <br />
                 <input type="password" name="password" placeholder="Password" v-model="password" required

@@ -12,7 +12,7 @@
         <p v-if=text(post)>{{post.text}}</p>
     </div>
     <div class="thumbs up">
-        <img src="../assets/thumbUp.svg" alt="Thumbs up" @click="likePost(post.id)">
+        <img src="../assets/thumbUp.svg" alt="Thumbs up" v-on:click="likePost(post.id)">
         <p>{{post.likes}}</p>
     </div>
 </div>

@@ -2,7 +2,7 @@
     <div class="posts" v-for="post in posts" :key="post.id">
         <post-component :post="post"/>
     </div>
-    <button @click="resetAllLikes">Reset likes</button>
+    <button v-on:click="resetAllLikes">Reset likes</button>
 </template>
 
 <script>

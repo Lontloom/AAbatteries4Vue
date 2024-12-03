@@ -47,7 +47,11 @@ app.get('/auth/authenticate', async(req, res) => {
         }
     } catch (err) {
         console.error(err.message);
-        res.status(400).send(err.message);
+        res
+        .status(400)
+        .send(JSON.stringify({
+            errorMessage: err.message 
+        }));
     }
 });
 
@@ -70,7 +74,11 @@ app.post('/auth/signup', async(req, res) => {
         .send;
     } catch (err) {
         console.error(err.message);
-        res.status(400).send(err.message);
+        res
+        .status(400)
+        .send(JSON.stringify({
+            errorMessage: err.message 
+        }));
     }
 });
 
@@ -93,7 +101,12 @@ app.post('/auth/login', async(req, res) => {
         .json({ user_id: user.rows[0].id })
         .send;
     } catch (error) {
-        res.status(401).json({ error: error.message });
+        console.error(err.message);
+        res
+        .status(401)
+        .send(JSON.stringify({
+            errorMessage: err.message 
+        }));
     }
 });
 

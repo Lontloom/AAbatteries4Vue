@@ -12,6 +12,7 @@
                 <p v-if="errorMessage != ''" class="error">{{ errorMessage }}</p>
                 <input @click="loginUser" type="submit" value="Log In" class="loginInput loginButton"/>
             </form>
+            <a @click="redirectToSignup">or sign up here</a>
         </div>
     </div>
 </template>
@@ -27,6 +28,9 @@ export default {
         };
     },
     methods: {
+        redirectToSignup() {
+            this.$router.push("/signup")
+        },
         loginUser() {
             fetch("http://localhost:3000/auth/login", {
                 method: "POST",

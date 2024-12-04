@@ -1,4 +1,5 @@
 <template>
+    <button v-on:click="logoutUser">Logout</button>
     <div class="posts" v-for="post in posts" :key="post.id">
         <post-component :post="post"/>
     </div>
@@ -22,11 +23,21 @@ export default {
         // },
     },
     methods: {
-        ...mapActions(['resetAllLikes'])
+        ...mapActions(['resetAllLikes']),
         // alternative:
         // resetLikes() {
         //     this.$store.dispatch('resetAllLikes');
         // },
+        logoutUser() {
+            fetch("http://localhost:3000/auth/logout", {
+          credentials: 'include',
+        })
+        .then((response) => {
+            if(response.ok) {
+                this.$router.push("/login")
+            }
+        });
+        }
     }
 }
 

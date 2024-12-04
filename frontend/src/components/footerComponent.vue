@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <p>PostIt 2.0 made with 📠 in 2024.</p>
+    <p>PostIt 3.0 made with 📠 in 2024.</p>
   </footer>
 </template>
 

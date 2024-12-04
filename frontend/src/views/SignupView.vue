@@ -32,6 +32,27 @@ export default {
         };
     },
     methods: {
+        signupUser() {
+            fetch("http://localhost:3000/auth/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify({
+                    email: this.email,
+                    password: this.password
+                })
+            })
+            .then(async response => {
+                if (response.ok) {
+                    this.$router.push("/")
+                    return;
+                }
+
+                console.log(await response.json());
+            });
+        },
         validatePassword() {
             this.errorMessages = [];
             const password = this.password;
@@ -56,8 +77,7 @@ export default {
             }
 
             if (this.errorMessages.length === 0) {
-                alert("Account creation was a success! Redirecting to the home page");
-                this.$router.push("/");
+                this.signupUser();
             }
         },
     },

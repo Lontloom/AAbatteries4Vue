@@ -31,4 +31,17 @@ execute(createTblQuery).then(result => {
     }
 });
 
+const createTablePostsQuery = `
+    CREATE TABLE IF NOT EXISTS "posts"(
+        id SERIAL PRIMARY KEY,
+        date TIMESTAMP NOT NULL, 
+        body VARCHAR(400) NOT NULL
+    );`;
+
+execute(createTablePostsQuery).then(result => {
+    if (result){
+        console.log('Table "posts" is created');
+    }
+});
+
 module.exports = pool;

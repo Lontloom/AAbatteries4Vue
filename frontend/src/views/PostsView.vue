@@ -36,7 +36,7 @@ export default {
             fetch(`http://localhost:3000/posts`)
             .then((response) => response.json())
             .then((data) => (this.posts = data))
-            .catch((error) => console.log(error.message));
+            .catch((err) => console.log(err.message));
         },
 
         deleteAllPosts(){
@@ -48,7 +48,7 @@ export default {
                     window.location.reload();
                 }
             })
-            .catch((error) => console.log(error))
+            .catch((err) => console.log(err))
         },
         
         addAPost(){

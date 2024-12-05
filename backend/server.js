@@ -119,11 +119,11 @@ app.get('/posts', async(req, res) => {
         console.log("get all posts request has arrived")
         const posts = await pool.query("SELECT * FROM posts")
         res.json(posts.rows)
-    } catch (error) {
-        console.error(error.message);
+    } catch (err) {
+        console.error(err.message);
         res.status(401)
         .send(JSON.stringify({
-            errorMessage: error.message 
+            errorMessage: err.message 
         }));
     }
 })
@@ -134,11 +134,11 @@ app.post('/posts/add', async(req, res) => {
         const {timestamp, text} = req.body;
         const post = await pool.query("INSERT INTO posts(date,body) VALUES($1, $2) RETURNING *", [timestamp, text])
         res.json(post);
-    } catch (error) {
-        console.error(error.message);
+    } catch (err) {
+        console.error(err.message);
         res.status(401)
         .send(JSON.stringify({
-            errorMessage: error.message 
+            errorMessage: err.message 
         }));
     }
 })
@@ -149,11 +149,11 @@ app.delete('/posts', async(req, res) => {
         await pool.query("DELETE FROM posts")
         res.status(200)
         .send()
-    } catch (error) {
-        console.error(error.message);
+    } catch (err) {
+        console.error(err.message);
         res.status(401)
         .send(JSON.stringify({
-            errorMessage: error.message 
+            errorMessage: err.message 
         }));
     }
 })

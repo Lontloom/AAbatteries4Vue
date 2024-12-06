@@ -3,31 +3,24 @@
     <div class="posts" v-for="post in posts" :key="post.id">
         <post-component :post="post"/>
     </div>
-    <button v-on:click="resetAllLikes">Reset likes</button>
+    <div class="buttons">
+        <button v-on:click="addAPost">Add a post</button>
+        <button v-on:click="deleteAllPosts">Delete all</button>
+    </div>
 </template>
 
 <script>
 import PostComponent from '@/components/PostComponent.vue';
-import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: "PostsView",
     components: {
         PostComponent,
     },
-    computed: {
-        ...mapGetters(['posts'])
-        // alternative: 
-        // posts() {
-        //     return this.$store.getters.posts;
-        // },
+    data() {
+        return {posts: [],};
     },
     methods: {
-        ...mapActions(['resetAllLikes']),
-        // alternative:
-        // resetLikes() {
-        //     this.$store.dispatch('resetAllLikes');
-        // },
         logoutUser() {
             fetch("http://localhost:3000/auth/logout", {
           credentials: 'include',
@@ -37,7 +30,34 @@ export default {
                 this.$router.push("/login")
             }
         });
+        },
+
+        fetchPosts() {
+            fetch(`http://localhost:3000/posts`)
+            .then((response) => response.json())
+            .then((data) => (this.posts = data))
+            .catch((err) => console.log(err.message));
+        },
+
+        deleteAllPosts(){
+            fetch(`http://localhost:3000/posts`, {
+                method: "DELETE", headers: {"Content-Type": "application/json"},})
+            .then((response) => {
+                console.log(response)
+                if (response.status === 200) {
+                    window.location.reload();
+                }
+            })
+            .catch((err) => console.log(err))
+        },
+        
+        addAPost(){
+            //TODO: redirect to add a post page
         }
+    },
+    mounted() {
+        this.fetchPosts();
+        console.log("mounted");
     }
 }
 
@@ -67,5 +87,25 @@ button {
 
 button:hover{
     background-color: var(--hover-color);
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media (max-width: 600px){
+    .buttons {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+}
+
+@media (min-width: 700px) {
+    .buttons{
+        width: 600px;
+        align-self: center;
+    }
 }
 </style>

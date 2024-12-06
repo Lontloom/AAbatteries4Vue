@@ -113,3 +113,47 @@ app.get('/auth/logout', (req, res) => {
     console.log('delete jwt request arrived');
     res.status(202).clearCookie('jwt').json({ "Msg": "cookie cleared" }).send
 });
+
+app.get('/posts', async(req, res) => {
+    try {
+        console.log("get all posts request has arrived")
+        const posts = await pool.query("SELECT * FROM posts")
+        res.json(posts.rows)
+    } catch (err) {
+        console.error(err.message);
+        res.status(401)
+        .send(JSON.stringify({
+            errorMessage: err.message 
+        }));
+    }
+})
+
+app.post('/posts/add', async(req, res) => {
+    try {
+        console.log("add post request has arrived")
+        const {timestamp, text} = req.body;
+        const post = await pool.query("INSERT INTO posts(date,body) VALUES($1, $2) RETURNING *", [timestamp, text])
+        res.json(post);
+    } catch (err) {
+        console.error(err.message);
+        res.status(401)
+        .send(JSON.stringify({
+            errorMessage: err.message 
+        }));
+    }
+})
+
+app.delete('/posts', async(req, res) => {
+    try {
+        console.log("delete all posts request has arrived")
+        await pool.query("DELETE FROM posts")
+        res.status(200)
+        .send()
+    } catch (err) {
+        console.error(err.message);
+        res.status(401)
+        .send(JSON.stringify({
+            errorMessage: err.message 
+        }));
+    }
+})

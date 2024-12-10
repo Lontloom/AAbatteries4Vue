@@ -28,7 +28,7 @@ app.listen(port, () => {
 
 
 app.get('/auth/authenticate', async(req, res) => {
-    console.log('authentication request has been arrived');
+    console.log('authentication request has arrived');
     const token = req.cookies.jwt;
     let authenticated = false;
     try {
@@ -59,6 +59,7 @@ app.get('/auth/authenticate', async(req, res) => {
 
 app.post('/auth/signup', async(req, res) => {
     try {
+        console.log("signup request has arrived");
         const { email, password } = req.body;
 
         const salt = await bcrypt.genSalt();
@@ -86,6 +87,7 @@ app.post('/auth/signup', async(req, res) => {
 
 app.post('/auth/login', async(req, res) => {
     try {
+        console.log("login request has arrived");
         const { email, password } = req.body;
         const user = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
         if (user.rows.length === 0) return res.status(401).json({ errorMessage: "User is not registered" });
@@ -99,7 +101,7 @@ app.post('/auth/login', async(req, res) => {
         .cookie('jwt', token, { maxAge: 6000000, httpOnly: true })
         .json({ user_id: user.rows[0].id })
         .send;
-    } catch (error) {
+    } catch (err) {
         console.error(err.message);
         res
         .status(401)

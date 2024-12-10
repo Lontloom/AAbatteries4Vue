@@ -44,13 +44,14 @@ export default {
                     password: this.password
                 })
             })
-            .then(async response => {
-                if (response.ok) {
-                    this.$router.push("/")
+            .then(response => response.json())
+            .then(data => {
+                if(data.errorMessage != undefined) {
+                    this.errorMessages = [data.errorMessage];
                     return;
                 }
 
-                console.log(await response.json());
+                this.$router.push("/")
             });
         },
         validatePassword() {

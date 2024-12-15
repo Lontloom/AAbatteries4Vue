@@ -26,12 +26,23 @@ GET http://localhost:3000/posts
 ### Delete all posts
 DELETE http://localhost:3000/posts
 
-### Add a post
+### Add a new post
 POST http://localhost:3000/posts/add
 Content-Type: application/json
 
-  {
-      "timestamp": "2024-12-03 14:30:00",
-      "text": "This is a TEST!"
-  }
+{
+  "timestamp: "2024-12-03 14:30:00",
+  "text": "This is a TEST!"
+}
+
+### Update an existing post 
+PUT http://localhost:3000/posts/1
+Content-Type: application/json
+
+{
+  "body": "This is an updated post"
+}
+
+### Delete a post
+DELETE http://localhost:3000/posts/1
 

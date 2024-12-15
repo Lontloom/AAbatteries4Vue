@@ -1,6 +1,6 @@
 <template>
     <button v-on:click="logoutUser">Logout</button>
-    <div class="posts" v-for="post in posts" :key="post.id">
+    <div class="posts" v-for="post in posts" :key="post.id" @click="goToEditPost(post.id)">
         <post-component :post="post"/>
     </div>
     <div class="buttons">
@@ -18,18 +18,18 @@ export default {
         PostComponent,
     },
     data() {
-        return {posts: [],};
+        return { posts: [] };
     },
     methods: {
         logoutUser() {
             fetch("http://localhost:3000/auth/logout", {
-          credentials: 'include',
-        })
-        .then((response) => {
-            if(response.ok) {
-                this.$router.push("/login")
-            }
-        });
+                credentials: 'include',
+            })
+            .then((response) => {
+                if(response.ok) {
+                    this.$router.push("/login");
+                }
+            });
         },
 
         fetchPosts() {
@@ -39,11 +39,12 @@ export default {
             .catch((err) => console.log(err.message));
         },
 
-        deleteAllPosts(){
+        deleteAllPosts() {
             fetch(`http://localhost:3000/posts`, {
-                method: "DELETE", headers: {"Content-Type": "application/json"},})
+                method: "DELETE", 
+                headers: {"Content-Type": "application/json"},
+            })
             .then((response) => {
-                console.log(response)
                 if (response.status === 200) {
                     window.location.reload();
                 }
@@ -51,16 +52,18 @@ export default {
             .catch((err) => console.log(err))
         },
         
-        addAPost(){
-            //TODO: redirect to add a post page
+        addAPost() {
+            this.$router.push("/add-post");
+        },
+
+        goToEditPost(postId) {
+            this.$router.push(`/edit-post/${postId}`);
         }
     },
     mounted() {
         this.fetchPosts();
-        console.log("mounted");
     }
 }
-
 </script>
 
 <style scoped>

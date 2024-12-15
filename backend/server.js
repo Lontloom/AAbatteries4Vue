@@ -159,3 +159,39 @@ app.delete('/posts', async(req, res) => {
         }));
     }
 })
+
+app.put('/posts/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { body } = req.body;
+        const updatedPost = await pool.query(
+            "UPDATE posts SET body = $1 WHERE id = $2 RETURNING *",
+            [body, id]
+        );
+        if (updatedPost.rows.length === 0) {
+            return res.status(404).json({ errorMessage: "Post not found" });
+        }
+        res.json(updatedPost.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ errorMessage: err.message });
+    }
+});
+
+app.delete('/posts/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedPost = await pool.query(
+            "DELETE FROM posts WHERE id = $1 RETURNING *",
+            [id]
+        );
+        if (deletedPost.rows.length === 0) {
+            return res.status(404).json({ errorMessage: "Post not found" });
+        }
+        res.status(200).json({ message: "Post deleted successfully" });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ errorMessage: err.message });
+    }
+});
+

@@ -48,8 +48,8 @@ export default {
 
 form {
   display: flex;
-  flex-direction: column; /* Ensures a vertical layout for form elements */
-  align-items: center; /* Centers the elements horizontally */
+  flex-direction: column; 
+  align-items: center; 
   background-color: var(--background-color);
   padding: 20px;
   border-radius: 10px;
@@ -65,7 +65,7 @@ label {
 input {
   width: 200px;
   padding: 10px;
-  margin-bottom: 10px; /* Add margin to create space between the input and the button */
+  margin-bottom: 10px; 
   border-radius: 5px;
   border: 1px solid #ccc;
 }

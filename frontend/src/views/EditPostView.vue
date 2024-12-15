@@ -17,8 +17,8 @@ export default {
     name: "EditPostView",
     data() {
         return {
-            postId: this.$route.params.id, // Post ID from route
-            body: "", // Post body
+            postId: this.$route.params.id,
+            body: "", 
         };
     },
     methods: {
@@ -59,6 +59,11 @@ export default {
                     }
                 })
                 .catch((error) => console.error("Error deleting post:", error));
+        },
+        mounted() {
+            console.log('Post ID:', this.postId);
+            console.log('Route Params:', this.$route.params); 
+            this.fetchPost();
         },
     },
 };
@@ -104,17 +109,17 @@ input {
 
 button {
     all: unset;
-  background-color: var(--button-color);
-  font-size: large;
-  color: white;
-  font-weight: bold;
-  border-radius: 25px;
-  width: 100px;
-  text-align: center;
-  padding: 10px;
-  margin-top: 10px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 8px 16px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
+    background-color: var(--button-color);
+    font-size: large;
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    width: 100px;
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 8px 16px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 button:hover {

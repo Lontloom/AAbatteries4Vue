@@ -27,11 +27,12 @@ GET http://localhost:3000/posts
 DELETE http://localhost:3000/posts
 
 ### Add a new post
-POST http://localhost:3000/posts
+POST http://localhost:3000/posts/add
 Content-Type: application/json
 
 {
-  "body": "This is a new post"
+  "timestamp: "2024-12-03 14:30:00",
+  "text": "This is a TEST!"
 }
 
 ### Update an existing post 
